@@ -1,7 +1,7 @@
 \documentclass[12pt,a4paper]{article}
 
 % Packages
-\usepackage[utf8]{vietnam}
+\usepackage[utf8]{inputenc}
 \usepackage[margin=2.5cm]{geometry}
 \usepackage{graphicx}
 \usepackage{tikz}
@@ -55,38 +55,40 @@
     \centering
     \vspace*{2cm}
     
-    {\LARGE\bfseries TRƯỜNG ĐẠI HỌC [TÊN TRƯỜNG]}\\[0.5cm]
-    {\large KHOA CÔNG NGHỆ THÔNG TIN}\\[2cm]
+    {\LARGE\bfseries UNIVERSITY OF SCIENCE AND TECHNOLOGY OF HANOI}\\[0.5cm]
+    {\large SCHOOL OF INFORMATION AND COMMUNICATION TECHNOLOGY}\\[2cm]
     
     \begin{tikzpicture}
         \draw[line width=2pt, blue!50] (0,0) -- (10,0);
     \end{tikzpicture}\\[1cm]
     
-    {\Huge\bfseries BÁO CÁO ĐỒ ÁN NHÓM}\\[0.5cm]
-    {\LARGE MÔN: HỆ THỐNG PHÂN TÁN}\\[0.5cm]
-    {\large (DISTRIBUTED SYSTEMS)}\\[1cm]
+    {\Huge\bfseries MID-TERM PROJECT REPORT}\\[0.5cm]
+    {\LARGE DISTRIBUTED SYSTEMS}\\[1cm]
     
     \begin{tikzpicture}
         \draw[line width=2pt, blue!50] (0,0) -- (10,0);
     \end{tikzpicture}\\[1.5cm]
     
-    {\Large\bfseries Đề tài:}\\[0.3cm]
+    {\Large\bfseries Project Topic:}\\[0.3cm]
     {\LARGE\bfseries REMOTE SHELL USING RPC}\\
     {\Large\bfseries (MULTIPLE CLIENTS)}\\[2cm]
     
     \begin{flushleft}
         \large
-        \textbf{Giảng viên hướng dẫn:} [Tên giảng viên]\\[0.5cm]
-        \textbf{Nhóm sinh viên thực hiện:}\\
+        \textbf{Group Members:}\\[0.3cm]
         \begin{tabular}{ll}
-            1. & [Tên SV 1] - MSSV: [........] \\
-            2. & [Tên SV 2] - MSSV: [........] \\
-            3. & [Tên SV 3] - MSSV: [........] \\
+            1. & Nguyễn Tiến Duy - 22BA13102 (Leader) \\
+            2. & Bùi Trường An - 22BA13001 \\
+            3. & Nguyễn Phương Anh - 22BA13020 \\
+            4. & Trần Thượng Nam Anh - 22BA13032 \\
+            5. & Trần Thục Anh - 23BI14030 \\
+            6. & Nguyễn Thị Vàng Anh - 23BI14032 \\
+            7. & Lương Quỳnh Nhi - 23BI14356 \\
         \end{tabular}
     \end{flushleft}
     
     \vfill
-    {\large Thành phố Hồ Chí Minh, tháng 12 năm 2025}
+    {\large Hanoi, December 2025}
 \end{titlepage}
 
 % Table of Contents
@@ -94,53 +96,53 @@
 \newpage
 
 % 1. Introduction
-\section{Giới thiệu}
+\section{Introduction}
 
-\subsection{Tổng quan về RPC}
+\subsection{Overview of RPC}
 
-RPC (Remote Procedure Call - Gọi thủ tục từ xa) là một giao thức cho phép một chương trình máy tính thực thi một thủ tục (subroutine) trên một máy tính khác như thể nó đang thực thi trên máy tính cục bộ, mà không cần lập trình viên phải lập trình chi tiết cho việc tương tác từ xa này.
+RPC (Remote Procedure Call) is a protocol that enables a computer program to execute a procedure (subroutine) on another computer as if it were executing on the local machine, without requiring the programmer to explicitly code the remote interaction details.
 
-\begin{tcolorbox}[colback=blue!5,colframe=blue!50,title=Nguyên lý hoạt động của RPC]
+\begin{tcolorbox}[colback=blue!5,colframe=blue!50,title=How RPC Works]
     \begin{enumerate}
-        \item Client gọi một procedure cục bộ (stub)
-        \item Stub đóng gói (marshal) các tham số thành message
-        \item Message được gửi qua mạng đến server
-        \item Server nhận message và giải mã (unmarshal) các tham số
-        \item Server thực thi procedure thực sự
-        \item Kết quả được đóng gói và gửi ngược lại client
-        \item Client nhận và giải mã kết quả
+        \item Client calls a local procedure (stub)
+        \item Stub marshals the parameters into a message
+        \item Message is sent over the network to the server
+        \item Server receives the message and unmarshals the parameters
+        \item Server executes the actual procedure
+        \item Result is marshaled and sent back to the client
+        \item Client receives and unmarshals the result
     \end{enumerate}
 \end{tcolorbox}
 
-\subsection{Mục tiêu đồ án}
+\subsection{Project Objectives}
 
-Đồ án này nhằm mục đích xây dựng một hệ thống Remote Shell sử dụng RPC với các mục tiêu sau:
+This mid-term project aims to build a Remote Shell system using RPC with the following objectives:
 
 \begin{itemize}
-    \item Hiểu và áp dụng kiến trúc RPC trong hệ thống phân tán
-    \item Xử lý đồng thời nhiều client kết nối đến server
-    \item Thực thi lệnh shell từ xa một cách an toàn
-    \item Xây dựng giao thức giao tiếp client-server đơn giản và hiệu quả
-    \item Hỗ trợ đa nền tảng (Windows, Linux)
+    \item Understand and apply RPC architecture in distributed systems
+    \item Handle multiple concurrent client connections to the server
+    \item Execute shell commands remotely in a secure manner
+    \item Build a simple and efficient client-server communication protocol
+    \item Support cross-platform compatibility (Windows, Linux)
 \end{itemize}
 
-\subsection{Công nghệ sử dụng}
+\subsection{Technologies Used}
 
 \begin{itemize}
-    \item \textbf{Ngôn ngữ lập trình:} Golang (Go 1.21+)
-    \item \textbf{RPC Framework:} \texttt{net/rpc} (built-in package của Go)
-    \item \textbf{Giao thức mạng:} TCP/IP
-    \item \textbf{Thư viện thực thi lệnh:} \texttt{os/exec}
+    \item \textbf{Programming Language:} Golang (Go 1.21+)
+    \item \textbf{RPC Framework:} \texttt{net/rpc} (Go's built-in package)
+    \item \textbf{Network Protocol:} TCP/IP
+    \item \textbf{Command Execution Library:} \texttt{os/exec}
 \end{itemize}
 
 \newpage
 
 % 2. System Design
-\section{Thiết kế hệ thống}
+\section{System Design}
 
-\subsection{Kiến trúc tổng quan}
+\subsection{Overall Architecture}
 
-Hệ thống được thiết kế theo mô hình client-server với RPC làm cơ chế giao tiếp:
+The system is designed following a client-server model with RPC as the communication mechanism:
 
 \begin{center}
 \begin{tikzpicture}[
@@ -181,39 +183,39 @@ Hệ thống được thiết kế theo mô hình client-server với RPC làm c
 \end{tikzpicture}
 \end{center}
 
-\subsection{Các thành phần hệ thống}
+\subsection{System Components}
 
 \subsubsection{Client Component}
 
-Client cung cấp giao diện dòng lệnh cho người dùng:
+The client provides a command-line interface for users:
 \begin{itemize}
-    \item Kết nối đến RPC Server qua TCP
-    \item Nhận lệnh từ người dùng
-    \item Gửi lệnh đến server thông qua RPC call
-    \item Nhận và hiển thị kết quả từ server
+    \item Connects to RPC Server via TCP
+    \item Receives commands from users
+    \item Sends commands to server through RPC calls
+    \item Receives and displays results from server
 \end{itemize}
 
 \subsubsection{Server Component}
 
-Server xử lý các yêu cầu từ nhiều client:
+The server handles requests from multiple clients:
 \begin{itemize}
-    \item Đăng ký RPC service
-    \item Lắng nghe kết nối trên cổng 8080
-    \item Xử lý mỗi client trong một goroutine riêng biệt
-    \item Thực thi lệnh shell và trả về kết quả
+    \item Registers RPC service
+    \item Listens for connections on port 8080
+    \item Handles each client in a separate goroutine
+    \item Executes shell commands and returns results
 \end{itemize}
 
 \subsubsection{Shared Types}
 
-Định nghĩa cấu trúc dữ liệu dùng chung:
+Defines common data structures:
 \begin{itemize}
-    \item \texttt{CommandRequest}: Chứa lệnh cần thực thi
-    \item \texttt{CommandResponse}: Chứa kết quả thực thi (stdout, stderr, exit code)
+    \item \texttt{CommandRequest}: Contains the command to execute
+    \item \texttt{CommandResponse}: Contains execution results (stdout, stderr, exit code)
 \end{itemize}
 
 \newpage
 
-\subsection{Luồng giao tiếp RPC}
+\subsection{RPC Communication Flow}
 
 \begin{center}
 \begin{tikzpicture}[
@@ -252,9 +254,9 @@ Server xử lý các yêu cầu từ nhiều client:
 \end{tikzpicture}
 \end{center}
 
-\subsection{Xử lý đồng thời (Concurrency)}
+\subsection{Concurrency Handling}
 
-Server sử dụng goroutines để xử lý nhiều client đồng thời:
+The server uses goroutines to handle multiple clients concurrently:
 
 \begin{center}
 \begin{tikzpicture}[
@@ -297,9 +299,9 @@ Server sử dụng goroutines để xử lý nhiều client đồng thời:
 \newpage
 
 % 3. Implementation
-\section{Chi tiết triển khai}
+\section{Implementation Details}
 
-\subsection{Cấu trúc dự án}
+\subsection{Project Structure}
 
 \begin{lstlisting}[language=bash, frame=single, caption=Project Structure]
 remote-shell-rpc/
@@ -315,7 +317,7 @@ remote-shell-rpc/
 
 \subsection{Shared Types (types.go)}
 
-Định nghĩa các cấu trúc dữ liệu được chia sẻ giữa client và server:
+Defines data structures shared between client and server:
 
 \begin{lstlisting}[caption=Shared Types Implementation]
 package shared
@@ -344,7 +346,7 @@ const (
 
 \subsubsection{RPC Service}
 
-Server định nghĩa một service với method \texttt{ExecuteCommand}:
+The server defines a service with the \texttt{ExecuteCommand} method:
 
 \begin{lstlisting}[caption=ShellService Implementation]
 type ShellService struct{}
@@ -423,7 +425,7 @@ func main() {
 
 \subsection{Client Implementation}
 
-Client kết nối đến server và cung cấp giao diện tương tác:
+The client connects to the server and provides an interactive interface:
 
 \begin{lstlisting}[caption=Client Implementation]
 func main() {
@@ -483,21 +485,21 @@ func main() {
 \newpage
 
 % 4. Testing & Results
-\section{Kiểm thử và kết quả}
+\section{Testing and Results}
 
-\subsection{Môi trường kiểm thử}
+\subsection{Testing Environment}
 
 \begin{itemize}
-    \item \textbf{Hệ điều hành:} Windows 11 / Ubuntu 22.04
-    \item \textbf{Go version:} 1.21
+    \item \textbf{Operating System:} Windows 11 / Ubuntu 22.04
+    \item \textbf{Go Version:} 1.21
     \item \textbf{Network:} Localhost (127.0.0.1)
 \end{itemize}
 
-\subsection{Kịch bản kiểm thử}
+\subsection{Test Scenarios}
 
 \subsubsection{Test 1: Single Client}
 
-Kiểm tra hoạt động cơ bản với một client:
+Testing basic functionality with one client:
 
 \begin{tcolorbox}[colback=gray!10,colframe=gray!50,title=Test Commands]
 \begin{verbatim}
@@ -515,16 +517,16 @@ Exit Code: 0
 \end{verbatim}
 \end{tcolorbox}
 
-\textbf{Kết quả:} ✅ PASS - Client kết nối thành công và thực thi lệnh chính xác.
+\textbf{Result:} ✅ PASS - Client connected successfully and executed commands correctly.
 
 \subsubsection{Test 2: Multiple Concurrent Clients}
 
-Kiểm tra khả năng xử lý đồng thời nhiều client:
+Testing concurrent client handling capability:
 
 \begin{itemize}
-    \item Mở 5 terminal
-    \item Khởi động 5 client kết nối đến cùng một server
-    \item Mỗi client thực thi các lệnh khác nhau đồng thời
+    \item Opened 5 terminals
+    \item Started 5 clients connecting to the same server
+    \item Each client executed different commands simultaneously
 \end{itemize}
 
 \begin{center}
@@ -548,11 +550,11 @@ Kiểm tra khả năng xử lý đồng thời nhiều client:
 \end{tikzpicture}
 \end{center}
 
-\textbf{Kết quả:} ✅ PASS - Server xử lý tất cả clients đồng thời, không có blocking.
+\textbf{Result:} ✅ PASS - Server handled all clients concurrently without blocking.
 
 \subsubsection{Test 3: Error Handling}
 
-Kiểm tra xử lý lỗi khi lệnh không hợp lệ:
+Testing error handling with invalid commands:
 
 \begin{tcolorbox}[colback=red!10,colframe=red!50,title=Invalid Command Test]
 \begin{verbatim}
@@ -564,7 +566,7 @@ Exit Code: 1
 \end{verbatim}
 \end{tcolorbox}
 
-\textbf{Kết quả:} ✅ PASS - Server xử lý lỗi đúng cách và trả về error message.
+\textbf{Result:} ✅ PASS - Server handled errors properly and returned error messages.
 
 \subsection{Performance Observations}
 
@@ -587,76 +589,81 @@ Memory Usage & ~10MB \\
 \newpage
 
 % 5. Conclusion
-\section{Kết luận}
+\section{Conclusion}
 
-\subsection{Kết quả đạt được}
+\subsection{Achievements}
 
-Đồ án đã hoàn thành các mục tiêu đề ra:
+The project successfully achieved all stated objectives:
 
 \begin{itemize}
-    \item ✅ Xây dựng thành công hệ thống Remote Shell sử dụng RPC
-    \item ✅ Hỗ trợ nhiều client kết nối đồng thời
-    \item ✅ Thực thi lệnh shell an toàn với error handling đầy đủ
-    \item ✅ Hỗ trợ đa nền tảng (Windows, Linux)
-    \item ✅ Code đơn giản, dễ hiểu, dễ bảo trì
+    \item ✅ Built a functional Remote Shell system using RPC
+    \item ✅ Supported multiple concurrent client connections
+    \item ✅ Safely executed shell commands with comprehensive error handling
+    \item ✅ Implemented cross-platform support (Windows, Linux)
+    \item ✅ Created simple, understandable, and maintainable code
 \end{itemize}
 
-\subsection{Kiến thức thu được}
+\subsection{Knowledge Gained}
 
-Qua quá trình thực hiện đồ án, nhóm đã học được:
+Through this mid-term project, our team learned:
 
 \begin{enumerate}
-    \item \textbf{RPC Fundamentals:} Hiểu rõ cơ chế hoạt động của RPC, marshaling/unmarshaling
-    \item \textbf{Concurrency in Go:} Sử dụng goroutines để xử lý đồng thời
-    \item \textbf{Network Programming:} TCP/IP communication, client-server architecture
-    \item \textbf{System Programming:} Thực thi shell commands, xử lý process
-    \item \textbf{Distributed Systems:} Remote execution, error handling trong môi trường phân tán
+    \item \textbf{RPC Fundamentals:} Understanding RPC mechanisms, marshaling/unmarshaling processes
+    \item \textbf{Concurrency in Go:} Utilizing goroutines for concurrent request processing
+    \item \textbf{Network Programming:} TCP/IP communication and client-server architecture
+    \item \textbf{System Programming:} Executing shell commands and handling processes
+    \item \textbf{Distributed Systems:} Remote execution and error handling in distributed environments
 \end{enumerate}
 
-\subsection{Hướng phát triển}
+\subsection{Future Improvements}
 
-Hệ thống có thể được cải tiến thêm:
+The system can be further enhanced with:
 
 \begin{itemize}
-    \item \textbf{Security:} Thêm authentication và encryption (TLS)
-    \item \textbf{Authorization:} Whitelist/blacklist commands
-    \item \textbf{Session Management:} Duy trì working directory cho mỗi client
-    \item \textbf{Command History:} Lưu lịch sử lệnh
-    \item \textbf{File Transfer:} Thêm khả năng upload/download files
-    \item \textbf{Web Interface:} Tạo web-based client với WebSockets
+    \item \textbf{Security:} Add authentication and encryption (TLS)
+    \item \textbf{Authorization:} Implement command whitelist/blacklist
+    \item \textbf{Session Management:} Maintain working directory for each client session
+    \item \textbf{Command History:} Store and retrieve command history
+    \item \textbf{File Transfer:} Add file upload/download capabilities
+    \item \textbf{Web Interface:} Create a web-based client using WebSockets
 \end{itemize}
 
-\subsection{Phân công công việc}
+\subsection{Team Contributions}
 
 \begin{table}[h]
 \centering
-\begin{tabular}{|l|l|c|}
+\begin{tabular}{|l|l|}
 \hline
-\textbf{Thành viên} & \textbf{Công việc} & \textbf{\%} \\
+\textbf{Team Member} & \textbf{Responsibilities} \\
 \hline
-[Tên SV 1] & Server Implementation, Testing & 35\% \\
-[Tên SV 2] & Client Implementation, Documentation & 35\% \\
-[Tên SV 3] & Shared Types, LaTeX Report, Integration & 30\% \\
+Nguyễn Tiến Duy (Leader) & Project coordination, system integration \\
+Bùi Trường An & Server implementation, RPC service \\
+Nguyễn Phương Anh & Client implementation, UI design \\
+Trần Thượng Nam Anh & Testing, quality assurance \\
+Trần Thục Anh & Documentation, user guides \\
+Nguyễn Thị Vàng Anh & Shared types, code review \\
+Lương Quỳnh Nhi & LaTeX report, technical diagrams \\
 \hline
 \end{tabular}
-\caption{Work Distribution}
+\caption{Team Member Contributions}
 \end{table}
 
-\subsection{Lời cảm ơn}
+\subsection{Acknowledgments}
 
-Nhóm xin chân thành cảm ơn Thầy/Cô [Tên giảng viên] đã hướng dẫn và cung cấp kiến thức quý báu về Hệ thống phân tán, giúp nhóm hoàn thành đồ án này.
+We would like to sincerely thank our professor and teaching assistants at the University of Science and Technology of Hanoi for their invaluable guidance and support throughout this mid-term project. Their expertise in Distributed Systems has been instrumental in helping us complete this work successfully.
 
 \newpage
 
 % References
-\section*{Tài liệu tham khảo}
-\addcontentsline{toc}{section}{Tài liệu tham khảo}
+\section*{References}
+\addcontentsline{toc}{section}{References}
 
 \begin{enumerate}
     \item Go Programming Language Documentation - \url{https://go.dev/doc/}
-    \item Go RPC Package - \url{https://pkg.go.dev/net/rpc}
-    \item Distributed Systems: Principles and Paradigms - Andrew S. Tanenbaum
-    \item Remote Procedure Call - Wikipedia
+    \item Go RPC Package Documentation - \url{https://pkg.go.dev/net/rpc}
+    \item Distributed Systems: Principles and Paradigms - Andrew S. Tanenbaum and Maarten Van Steen
+    \item Remote Procedure Call - Wikipedia - \url{https://en.wikipedia.org/wiki/Remote_procedure_call}
+    \item Concurrency in Go - Katherine Cox-Buday, O'Reilly Media
 \end{enumerate}
 
 \end{document}

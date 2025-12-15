@@ -19,7 +19,7 @@ func main() {
 	}
 
 	// Connect to RPC server
-	fmt.Printf("🔌 Connecting to server at %s...\n", serverAddr)
+	fmt.Printf(" Connecting to server at %s...\n", serverAddr)
 	client, err := rpc.Dial("tcp", serverAddr)
 	if err != nil {
 		log.Fatal("Error connecting to server:", err)

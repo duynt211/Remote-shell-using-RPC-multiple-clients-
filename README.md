@@ -2,7 +2,7 @@
 
 A distributed remote shell system built with Golang's native RPC framework that allows multiple clients to connect to a central server and execute shell commands remotely.
 
-## 🎯 Overview
+## Overview
 
 This project demonstrates key distributed systems concepts:
 - **RPC (Remote Procedure Call)**: Client-server communication using Go's `net/rpc`
@@ -10,7 +10,7 @@ This project demonstrates key distributed systems concepts:
 - **Remote Command Execution**: Execute shell commands on remote server safely
 - **Cross-Platform Support**: Works on Windows and Linux/Unix systems
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌─────────────┐         RPC          ┌─────────────┐
@@ -32,7 +32,7 @@ This project demonstrates key distributed systems concepts:
                                      └─────────────┘
 ```
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 remote-shell-rpc/
@@ -46,7 +46,7 @@ remote-shell-rpc/
 └── README.md            # This file
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -106,7 +106,7 @@ remote-shell> exit
 👋 Disconnecting from server...
 ```
 
-## 🧪 Testing Multiple Clients
+##  Testing Multiple Clients
 
 To test concurrent client connections:
 
@@ -116,7 +116,7 @@ To test concurrent client connections:
 4. Execute commands from different clients simultaneously
 5. Observe that all clients receive correct responses
 
-## 🔧 Technical Details
+##  Technical Details
 
 ### RPC Communication
 
@@ -153,16 +153,10 @@ The server handles each client connection in a separate goroutine, allowing mult
 - **Windows**: Uses `cmd /C <command>`
 - **Linux/Unix**: Uses `sh -c <command>`
 
-## 📝 Notes
+##  Notes
 
 - Commands are executed with the same privileges as the server process
 - Be careful when running this over public networks (no authentication/encryption)
 - For production use, consider adding authentication, encryption, and command whitelisting
 
-## 👥 Authors
 
-Distributed Systems - Group Project
-
-## 📄 License
-
-Educational project for Distributed Systems course.
